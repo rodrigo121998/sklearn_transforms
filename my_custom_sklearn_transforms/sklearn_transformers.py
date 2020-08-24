@@ -15,18 +15,16 @@ class DropColumns(BaseEstimator, TransformerMixin):
         # Retornamos um novo dataframe sem as colunas indesejadas
         return data.drop(labels=self.columns, axis='columns')
 class Scorecolumn(BaseEstimator, TransformerMixin):
-    def __init__(self,columna_nueva,columna1,columna2,columna3,columna4):
-        self.columna_nueva = columna_nueva
-        self.columna1=columna1
-        self.columna2=columna2
-        self.columna3=columna3
-        self.columna4=columna4
+    def __init__(self,columns=None):
+        self.columns=columns
         
     def fit(self, X, y=None):
         return self
 
     def transform(self, X):
         data = X.copy()
-        data[self.columna_nueva]=data[self.columna1]*data[self.columna2]*(data[self.columna3]+data[self.columna4])
+        data["score_ds"]=data["HOURS_DATASCIENCE"]*data["AVG_SCORE_DATASCIENCE"]*(data["NUM_COURSES_BEGINNER_DATASCIENCE"]+data["NUM_COURSES_ADVANCED_DATASCIENCE"])
+        data["score_be"]=data["HOURS_BACKEND"]*data["AVG_SCORE_BACKEND"]*(data["NUM_COURSES_BEGINNER_BACKEND"]+data["NUM_COURSES_ADVANCED_BACKEND"])
+        data["score_fe"]=data["HOURS_FRONTEND"]*data["AVG_SCORE_FRONTEND"]*(data["NUM_COURSES_BEGINNER_FRONTEND"]+data["NUM_COURSES_ADVANCED_FRONTEND"])
         return data
 
