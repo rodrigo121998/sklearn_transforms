@@ -23,8 +23,8 @@ class Scorecolumn(BaseEstimator, TransformerMixin):
 
     def transform(self, X):
         data = X.copy()
-        data["score_ds"]=data["HOURS_DATASCIENCE"]*data["AVG_SCORE_DATASCIENCE"]*(data["NUM_COURSES_BEGINNER_DATASCIENCE"]+data["NUM_COURSES_ADVANCED_DATASCIENCE"])
-        data["score_be"]=data["HOURS_BACKEND"]*data["AVG_SCORE_BACKEND"]*(data["NUM_COURSES_BEGINNER_BACKEND"]+data["NUM_COURSES_ADVANCED_BACKEND"])
-        data["score_fe"]=data["HOURS_FRONTEND"]*data["AVG_SCORE_FRONTEND"]*(data["NUM_COURSES_BEGINNER_FRONTEND"]+data["NUM_COURSES_ADVANCED_FRONTEND"])
+        data['score_ds']=data.HOURS_DATASCIENCE*data.AVG_SCORE_DATASCIENCE*(data.NUM_COURSES_BEGINNER_DATASCIENCE+data.NUM_COURSES_ADVANCED_DATASCIENCE)
+        data['score_be']=data.HOURS_BACKEND*data.AVG_SCORE_BACKEND*(data.NUM_COURSES_BEGINNER_BACKEND+data.NUM_COURSES_ADVANCED_BACKEND)
+        data['score_fe']=data.HOURS_FRONTEND*data.AVG_SCORE_FRONTEND*(data.NUM_COURSES_BEGINNER_FRONTEND+data.NUM_COURSES_ADVANCED_FRONTEND)
         return data
 
