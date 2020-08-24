@@ -15,7 +15,7 @@ class DropColumns(BaseEstimator, TransformerMixin):
         # Retornamos um novo dataframe sem as colunas indesejadas
         return data.drop(labels=self.columns, axis='columns')
 class Scorecolumn(BaseEstimator, TransformerMixin):
-    def __init__(self,  columna_nueva,columna1,columna2,columna3,columna4):
+    def __init__(self,columna_nueva,columna1,columna2,columna3,columna4):
         self.columna_nueva = columna_nueva
         self.columna1=columna1
         self.columna2=columna2
