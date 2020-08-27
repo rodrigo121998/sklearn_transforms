@@ -35,11 +35,11 @@ class resampling(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X):
-        df = X.copy()
-        sospe=df['OBJETIVO'].value_counts()['Sospechoso']
-        acep=df['OBJETIVO'].value_counts()['Aceptado']
-        df_majority = df[df.OBJETIVO=='Aceptado']
-        df_minority = df[df.OBJETIVO=='Sospechoso']
+        data = X.copy()
+        sospe=data['OBJETIVO'].value_counts()['Sospechoso']
+        acep=data['OBJETIVO'].value_counts()['Aceptado']
+        df_majority = data[data.OBJETIVO=='Aceptado']
+        df_minority = data[data.OBJETIVO=='Sospechoso']
  
         df_minority_upsampled = resample(df_minority, 
                                  replace=True,     # sample with replacement
