@@ -28,15 +28,15 @@ class Scorecolumn(BaseEstimator, TransformerMixin):
         data['score_fe']=(data.HOURS_FRONTEND*data.AVG_SCORE_FRONTEND*(data.NUM_COURSES_BEGINNER_FRONTEND+data.NUM_COURSES_ADVANCED_FRONTEND))
         return data
 class resampling(BaseEstimator, TransformerMixin):
-    def __init__(self,columns=None):
-        self.columns=columns
+    def __init__(self,objetivo):
+        self.objetivo=objetivo
         
-    def fit(self, X, y):
+    def fit(self, X, y=None):
         return self
 
-    def transform(self, X,y):
+    def transform(self, X):
         data = X.copy()
-        data['OBJETIVO']=y
+        data['OBJETIVO']=self.objetivo
         sospe=data['OBJETIVO'].value_counts()['Sospechoso']
         acep=data['OBJETIVO'].value_counts()['Aceptado']
         df_majority = data[data.OBJETIVO=='Aceptado']
