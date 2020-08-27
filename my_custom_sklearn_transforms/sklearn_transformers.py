@@ -34,8 +34,9 @@ class resampling(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
 
-    def transform(self, X):
+    def transform(self, X,y):
         data = X.copy()
+        data['OBJETIVO']=y
         sospe=data['OBJETIVO'].value_counts()['Sospechoso']
         acep=data['OBJETIVO'].value_counts()['Aceptado']
         df_majority = data[data.OBJETIVO=='Aceptado']
