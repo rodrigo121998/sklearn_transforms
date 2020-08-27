@@ -52,4 +52,4 @@ class resampling(BaseEstimator, TransformerMixin):
                                  random_state=123) # reproducible results
  
         df_new = pd.concat([df_majority_downsampled, df_minority_upsampled])
-        return df_new.iloc[:,:-1],df_new.iloc[:,-1]
+        return df_new.iloc[:,:-1].reset_index().drop(['index'],axis=1),df_new.iloc[:,-1].reset_index().drop(['index'],axis=1)
