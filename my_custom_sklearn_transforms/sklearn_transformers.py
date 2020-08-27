@@ -27,4 +27,28 @@ class Scorecolumn(BaseEstimator, TransformerMixin):
         data['score_be']=(data.HOURS_BACKEND*data.AVG_SCORE_BACKEND*(data.NUM_COURSES_BEGINNER_BACKEND+data.NUM_COURSES_ADVANCED_BACKEND))
         data['score_fe']=(data.HOURS_FRONTEND*data.AVG_SCORE_FRONTEND*(data.NUM_COURSES_BEGINNER_FRONTEND+data.NUM_COURSES_ADVANCED_FRONTEND))
         return data
+class resampling(BaseEstimator, TransformerMixin):
+    def __init__(self,columns=None):
+        self.columns=columns
+        
+    def fit(self, X, y=None):
+        return self
 
+    def transform(self, X):
+        data = X.copy()
+        sospe=df['OBJETIVO'].value_counts()['Sospechoso']
+        acep=df['OBJETIVO'].value_counts()['Aceptado']
+        df_majority = df[df.OBJETIVO=='Aceptado']
+        df_minority = df[df.OBJETIVO=='Sospechoso']
+ 
+        df_minority_upsampled = resample(df_minority, 
+                                 replace=True,     # sample with replacement
+                                 n_samples=sospe*2,    # to match majority class
+                                 random_state=123) # reproducible results
+        df_majority_downsampled = resample(df_majority, 
+                                 replace=False,    # sample without replacement
+                                 n_samples=acep//2,     # to match minority class
+                                 random_state=123) # reproducible results
+ 
+        df_new = pd.concat([df_majority_downsampled, df_minority_upsampled])
+        return df_new
