@@ -31,7 +31,7 @@ class resampling(BaseEstimator, TransformerMixin):
     def __init__(self,columns=None):
         self.columns=columns
         
-    def fit(self, X, y=None):
+    def fit(self, X, y):
         return self
 
     def transform(self, X,y):
